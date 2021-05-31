@@ -1,0 +1,42 @@
+[package]
+name = "trusc"
+version = "0.1.0"
+license = "MIT"
+authors = ["Kitson Kelly <me@kitsonkelly.com>"]
+edition = "2018"
+description = "Provides a single binary host for tsc."
+default-run = "trusc"
+
+[[bin]]
+name = "trusc"
+path = "src/main.rs"
+
+[build-dependencies]
+deno_core = "0.88.0"
+regex = "1.4.3"
+serde = { version = "1.0.123", features = ["derive"] }
+
+[target.'cfg(windows)'.build-dependencies]
+winapi = "0.3.9"
+winres = "0.1.11"
+
+[dependencies]
+deno_core = "0.88.0"
+env_logger = "0.8.3"
+log = { version = "0.4.14", features = ["serde"] }
+regex = "1.5.4"
+serde = { version = "1.0.126", features = ["derive"] }
+
+[target.'cfg(windows)'.dependencies]
+fwdansi = "1.1.0"
+winapi = { version = "0.3.9", features = ["knownfolders", "mswsock", "objbase", "shlobj", "tlhelp32", "winbase", "winerror", "winsock2"] }
+
+[target.'cfg(unix)'.dependencies]
+nix = "0.20.0"
+
+[package.metadata.winres]
+# This section defines the metadata that appears in the deno.exe PE header.
+OriginalFilename = "rustc.exe"
+LegalCopyright = "© Kitson P. Kelly. MIT licensed."
+ProductName = "trusc"
+FileDescription = "The TypeScript compiler with a Rust host."
